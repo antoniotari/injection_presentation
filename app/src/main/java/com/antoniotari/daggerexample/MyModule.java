@@ -18,7 +18,10 @@ import dagger.Provides;
         injects = {
                 MyApplication.class,
                 MainActivity.class,
-                TemplateSingleton.class
+                TemplateSingleton.class,
+                MyReader.class,
+                DebugReader.class,
+                ReleaseReader.class
         },
         includes = {
         },
@@ -41,5 +44,10 @@ public class MyModule {
     @Provides @Singleton
     TemplateSingleton provideTemplateSingleton(@ForApplication Context context){
         return new TemplateSingleton(context);
+    }
+
+    @Provides
+    MyReader provideMyReader(){
+        return BuildConfig.DEBUG?new DebugReader():new ReleaseReader();
     }
 }
